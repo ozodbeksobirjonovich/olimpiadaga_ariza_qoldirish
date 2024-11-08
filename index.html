@@ -82,12 +82,14 @@
                         Iltimos, maktab nomini kiriting.
                     </div>
                 </div>
-                <!-- Sinf -->
+                <!-- Sinf (Changed to Select) -->
                 <div class="mb-3">
                     <label for="school_class" class="form-label required">Sinf</label>
-                    <input type="text" class="form-control" id="school_class" placeholder="Sinf raqamingiz" required>
+                    <select class="form-select" id="school_class" required>
+                        <option value="">Sinf raqamingizni tanlang</option>
+                    </select>
                     <div class="invalid-feedback">
-                        Iltimos, sinf raqamingizni kiriting.
+                        Iltimos, sinf raqamingizni tanlang.
                     </div>
                 </div>
                 <!-- Olimpiada Turi -->
@@ -102,14 +104,15 @@
                         Iltimos, olimpiada turini tanlang.
                     </div>
                 </div>
-                <!-- Olimpiada Fani -->
+                <!-- Olimpiada Fani (Added "Matematika") -->
                 <div class="mb-3">
                     <label for="olympiad_subject" class="form-label required">Olimpiada Fani</label>
                     <select class="form-select" id="olympiad_subject" required>
                         <option value="">Fanningizni tanlang</option>
                         <option value="Informatika va IT">Informatika va IT</option>
                         <option value="Ingliz tili">Ingliz tili</option>
-                        <option value="Ikkalasidan ham">Ikkalasidan ham</option>
+                        <option value="Matematika">Matematika</option>
+                        <option value="Hammasidan qatnashaman">Ikkalasidan ham</option>
                     </select>
                     <div class="invalid-feedback">
                         Iltimos, olimpiada fanini tanlang.
@@ -424,8 +427,9 @@
             validateInput(this);
         });
 
-        document.getElementById('school_class').addEventListener('input', function () {
-            validateInput(this);
+        // Removed input event listener for 'school_class' since it's now a select
+        document.getElementById('school_class').addEventListener('change', function () {
+            validateSelect(this);
         });
 
         document.getElementById('olympiad_type').addEventListener('change', function () {
@@ -434,7 +438,45 @@
 
         document.getElementById('olympiad_subject').addEventListener('change', function () {
             validateSelect(this);
+            populateClassOptions(this.value);
         });
+
+        // Function to Populate 'Sinf' Select Based on Olimpiada Fani
+        function populateClassOptions(subject) {
+            const classSelect = document.getElementById('school_class');
+            classSelect.innerHTML = '<option value="">Sinf raqamingizni tanlang</option>'; // Reset options
+
+            let startGrade = 1; // Default start grade
+            let endGrade = 11;  // Default end grade
+
+            if (subject === 'Ingliz tili') {
+                startGrade = 2;
+                endGrade = 11;
+            } else if (subject === 'Informatika va IT') {
+                startGrade = 5;
+                endGrade = 11;
+            } else if (subject === 'Matematika') {
+                startGrade = 1;
+                endGrade = 11;
+            } else if (subject === 'Hammasidan qatnashaman') {
+                startGrade = 1;
+                endGrade = 11;
+            }
+
+            for (let grade = startGrade; grade <= endGrade; grade++) {
+                const option = document.createElement('option');
+                option.value = grade;
+                option.textContent = grade;
+                classSelect.appendChild(option);
+            }
+
+            // Enable the class select if there are options
+            if (startGrade <= endGrade) {
+                classSelect.disabled = false;
+            } else {
+                classSelect.disabled = true;
+            }
+        }
 
         form.addEventListener('submit', function (event) {
             event.preventDefault();
@@ -486,7 +528,7 @@
                 province: provinceSelect.value,
                 city: citySelect.value,
                 school: document.getElementById('school').value.trim(),
-                school_class: document.getElementById('school_class').value.trim(),
+                school_class: document.getElementById('school_class').value,
                 olympiad_type: document.getElementById('olympiad_type').value,
                 olympiad_subject: document.getElementById('olympiad_subject').value
             };
