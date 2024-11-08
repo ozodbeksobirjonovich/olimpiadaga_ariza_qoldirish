@@ -40,7 +40,7 @@
             <form id="registrationForm" novalidate>
                 <!-- To'liq Ism -->
                 <div class="mb-3">
-                    <label for="fullname" class="form-label required">To'liq Ismingiz</label>
+                    <label for="fullname" class="form-label required">To'liq ismingiz</label>
                     <input type="text" class="form-control" id="fullname" placeholder="Ism va familiyangiz" required>
                     <div class="invalid-feedback">
                         Iltimos, to'liq ismingizni kiriting.
@@ -48,15 +48,15 @@
                 </div>
                 <!-- Telefon Raqami -->
                 <div class="mb-3">
-                    <label for="phone" class="form-label required">Telefon Raqamingiz</label>
+                    <label for="phone" class="form-label required">Telefon raqamingiz</label>
                     <input type="text" class="form-control" id="phone" placeholder="+998xxxxxxxxx" maxlength="13" minlength="13" required pattern="^\+998\d{9}$">
                     <div class="invalid-feedback">
-                        Telefon raqam noto'g'ri formatda. Iltimos, +998 bilan boshlanadigan 13 ta belgidan iborat raqam kiriting.
+                        Telefon raqam noto'g'ri formatda. Iltimos, +998 bilan boshlanadigan va undan keyin 7 ta belgidan iborat raqam kiriting.
                     </div>
                 </div>
                 <!-- Yashash Viloyati -->
                 <div class="mb-3">
-                    <label for="province" class="form-label required">Yashash Viloyatingiz</label>
+                    <label for="province" class="form-label required">Yashash viloyatingiz</label>
                     <select class="form-select" id="province" required>
                         <option value="">Viloyatingizni tanlang</option>
                     </select>
@@ -66,7 +66,7 @@
                 </div>
                 <!-- Yashash Tuman/Shahari -->
                 <div class="mb-3">
-                    <label for="city" class="form-label required">Yashash Tuman/Shaharingiz</label>
+                    <label for="city" class="form-label required">Yashash tuman/shaharingiz</label>
                     <select class="form-select" id="city" disabled required>
                         <option value="">Tumanni tanlang</option>
                     </select>
@@ -76,13 +76,13 @@
                 </div>
                 <!-- Olimpiada Fani (Added "Matematika") -->
                 <div class="mb-3">
-                    <label for="olympiad_subject" class="form-label required">Olimpiada Fani</label>
+                    <label for="olympiad_subject" class="form-label required">Olimpiada fani</label>
                     <select class="form-select" id="olympiad_subject" required>
                         <option value="">Fanningizni tanlang</option>
                         <option value="Informatika va IT">Informatika va IT</option>
                         <option value="Ingliz tili">Ingliz tili</option>
                         <option value="Matematika">Matematika</option>
-                        <option value="Hammasidan qatnashaman">Ikkalasidan ham</option>
+                        <option value="Hammasidan qatnashaman">Hammasiga qatnashaman</option>
                     </select>
                     <div class="invalid-feedback">
                         Iltimos, olimpiada fanini tanlang.
@@ -91,7 +91,7 @@
                 <!-- Maktab -->
                 <div class="mb-3">
                     <label for="school" class="form-label required">Maktab</label>
-                    <input type="text" class="form-control" id="school" placeholder="Maktab nomi" required>
+                    <input type="text" class="form-control" id="school" placeholder="Maktab nomi (ex. 4-maktab)" required>
                     <div class="invalid-feedback">
                         Iltimos, maktab nomini kiriting.
                     </div>
@@ -111,8 +111,8 @@
                     <label for="olympiad_type" class="form-label required">Olimpiada Turi</label>
                     <select class="form-select" id="olympiad_type" required>
                         <option value="">O'zingizga qulayini tanlang</option>
-                        <option value="Online">Online</option>
-                        <option value="Offline">Offline</option>
+                        <option value="Online">Online qatnashish</option>
+                        <option value="Offline">Offline qatnashish</option>
                     </select>
                     <div class="invalid-feedback">
                         Iltimos, olimpiada turini tanlang.
@@ -465,8 +465,8 @@
 
             for (let grade = startGrade; grade <= endGrade; grade++) {
                 const option = document.createElement('option');
-                option.value = grade;
-                option.textContent = grade;
+                option.value = grade + "-sinf";
+                option.textContent = grade + "-sinf";
                 classSelect.appendChild(option);
             }
 
